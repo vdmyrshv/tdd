@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+export default class App extends Component {
+
+  state = {
+    counter: 0
+  }
+
+  render() {
+    return (
+      //the reason a new attribute is created for testing is because another coder might come along
+      //and change the class or id when refactoring
+      <div data-test="component-app" className="container">
+        <h1 data-test="counter-display">Counter is {this.state.counter}</h1>
+        <button 
+          onClick={() => this.setState(prevState => ({ counter: prevState.counter + 1 }))} 
+          data-test="increment-button"
+        >
+          increment
+        </button>
+        <button
+          disabled={!this.state.counter}
+          onClick={() => this.setState(prevState => ({ counter: prevState.counter - 1 }))}
+          data-test="decrement-button"
+        >
+          decrement
+        </button>
+      </div>
+    )
+  }
+}
